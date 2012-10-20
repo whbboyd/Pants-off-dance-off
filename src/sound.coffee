@@ -6,13 +6,11 @@ Sound =
     f.play()
     
     if f.readyState != 4
-      p = () => f.pause()
       n = () -> false
-      r = () => f.currentTime = 0.1
       f.addEventListener 'canplaythrough', n, false
       f.addEventListener 'load', n, false
-      f.addEventListener 'ended', r, false
-      setTimeout p, 1
+      f.addEventListener 'ended', (() => f.currentTime = 0.1), false
+      setTimeout((() => f.pause()), 1)
   
   start : (name) ->
     @files[name].play()
