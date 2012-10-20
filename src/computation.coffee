@@ -1,5 +1,5 @@
 Constants =
-    move_threshold: 10
+    move_threshold: 2
     time_score_multiplier: 10
     section_length: 3609 / 2
     pause_length: 3609 / 2
@@ -83,7 +83,7 @@ Dance =
     doRecording : () ->
         UI.dbg("In recording")
         time = @time()
-        if @sample.x + @sample.y + @sample.z > Constants.move_threshold
+        if Math.abs(@sample.x) + Math.abs(@sample.y) + Math.abs(@sample.z) > Constants.move_threshold
             @dance.push([@sample, time])
         if time > @section_end
             UI.msg 'Paused'
