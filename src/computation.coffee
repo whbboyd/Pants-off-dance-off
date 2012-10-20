@@ -1,5 +1,5 @@
 Constants =
-    move_threshold: 2
+    move_threshold: 5
     time_score_multiplier: 10
     section_length: 3609
     pause_length: 3609
@@ -68,7 +68,7 @@ Dance =
     doMirroring : () ->
         UI.dbg("In mirroring")
         time = @time()
-        unless @match(time)
+        unless @threshold() and @match(time)
             UI.msg 'Game Over!'
             Sound.start 'failure'
             @state = States.done
@@ -82,7 +82,7 @@ Dance =
     doRecording : () ->
         UI.dbg("In recording")
         time = @time()
-        if Math.abs(@sample.x) + Math.abs(@sample.y) + Math.abs(@sample.z) > Constants.move_threshold
+        if @threshold()
             @dance.push([@sample, time])
         if time > @section_end
             UI.msg 'Paused'
@@ -91,6 +91,9 @@ Dance =
             @num_sections += 1
             @state = States.paused
      
+    threshold : () ->
+        Math.abs(@sample.x) + Math.abs(@sample.y) + Math.abs(@sample.z) > Constants.move_threshold
+
     match : (time) ->
         console.log @current_events, @dance
         [sb, tb] = @dance[@current_events]
