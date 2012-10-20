@@ -13,40 +13,60 @@ window.UI = {
   ref: function(m) {
     return this.action().innerHTML = m;
   },
+  dbg: function(m) {
+    var _ref;
+    if ((_ref = window.console) != null) {
+      _ref.log(m);
+    }
+    return document.getElementById("debug").innerHTML = m;
+  },
   states: {
     initial: 0,
     active: 1,
-    lost: 2
+    lost: 2,
+    victory: 3
   },
-  state: this.states.initial,
-  startCountdown: function() {
-    this.stop();
-    this.msg('5');
-    window.setTimeout("UI.msg('4');", 2000);
-    window.setTimeout("UI.msg('3');", 3000);
-    window.setTimeout("UI.msg('2');", 4000);
-    window.setTimeout("UI.msg('1');", 5000);
-    return window.setTimeout("UI.start();", 6000);
-  },
+  state: 0,
   stop: function() {
+    this.dbg("UI.stop called");
     this.state = this.states.initial;
     this.ref('start');
     return window.ondevicemotion = false;
   },
   start: function() {
-    this.state = this.states.active;
+    var audio,
+      _this = this;
+    this.dbg("UI.start called");
+    this.stop();
     this.ref('reset');
+    this.state = this.states.active;
+    audio = new Audio('digital-love.mp3');
+    audio.addEventListener('ended', (function() {
+      return audio.currentTime = 0.1;
+    }), false);
+    audio.play();
     this.msg('Dance.');
     return window.ondevicemotion = Dance.register_sample;
   },
   game_over: function() {
+    this.stop();
     this.state = this.states.lost;
-    return this.msg('You Lose');
+    this.msg('You Lose.');
+    return Sound.failure();
+  },
+  victory: function() {
+    if (this.state !== this.states.active) {
+      return;
+    }
+    this.stop();
+    this.state = this.states.victory;
+    return this.msg('Victory!');
   },
   bind: function() {
+    this.msg('Ready thyself.');
     this.ref("start");
     return this.action().onclick = function() {
-      UI.startCountdown();
+      UI.start();
       return false;
     };
   }
