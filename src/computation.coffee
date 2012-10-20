@@ -25,6 +25,7 @@ Dance =
         @num_sections = 0
         @dance = []
         @state = States.prelude
+        Sound.start 'song'
 
     register_sample : (sample) ->
         return if @state is States.done
@@ -39,7 +40,7 @@ Dance =
             when States.mirroring then @doMirroring()
             when States.recording then @doRecording()
 
-    time : () -> Date.now()
+    time : () -> Sound.file['song'].currentTime
     
     doPrelude : () ->
         UI.msg 'Prelude'
@@ -47,14 +48,14 @@ Dance =
             UI.msg 'Initial'
             @section_end += Constants.initial_length
             @state = States.initial
-            Sound.start '321'
+            Sound.start 'countdown'
     
     doInitial : () ->
         if @time() > @section_end
             UI.msg 'Recording'
             @section_end += Constants.section_length
             @state = States.recording
-            Sound.start '321swap321'
+            Sound.start 'swap'
 
     doPaused : () ->
         if @time() > @section_end
