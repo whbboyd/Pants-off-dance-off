@@ -5,7 +5,7 @@ Constants =
     pause_length: 3609
     prelude_length: 3609
     initial_length: 3609
-    score_threshold: 3
+    score_threshold: 15
         
 States =
     prelude: -1
@@ -92,7 +92,8 @@ Dance =
         [sb, tb] = @dance[@current_events]
         [sa, ta] = [@sample, time]
         [dx, dy, dz] = [Math.abs(sa.x - sb.x), Math.abs(sa.y - sb.y), Math.abs(sa.z - sb.z)]
-        dt = Constants.time_score_multiplier * Math.abs(ta - tb)
+        #dt = Constants.time_score_multiplier * Math.abs(ta - tb)
+        dt = 0
         UI.dbg("#{dx}, #{dy}, #{dz}: #{dt}")
         return Math.max(dx, dy, dz, dt) <= Constants.score_threshold
 
