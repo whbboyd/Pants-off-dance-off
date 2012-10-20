@@ -30,7 +30,7 @@ Dance =
 			@state = States.running
 			@section_end += @section_length
 
-		@current_samples.push((sample, time))
+		@current_samples.push([sample, time])
 
 		# If we've passed the end of the section
 		if time > @section_end
@@ -69,14 +69,14 @@ Dance =
 			eb = @dance[-1][@section_events.length - 1]
 			sb = eb[0]
 			tb = eb[1]
-			(dx, dy, dz) = (Math.abs(sa.accel.x - sb.accel.x),
-							Math.abs(sa.accel.y - sb.accel.y),
-							Math.abs(sa.accel.z - sb.accel.z))
+			(dx, dy, dz) = (Math.abs(sa.acceleration.x - sb.acceleration.x),
+							Math.abs(sa.acceleration.y - sb.acceleration.y),
+							Math.abs(sa.acceleration.z - sb.acceleration.z))
 			dt = 10 * Math.abs(ta - tb)
 
 			# Player screwed up
 			if Math.max(dx, dy, dz, dt) > @score_threshold
-				end_dance()
+				@end_dance()
 				return
 
 
