@@ -1,5 +1,5 @@
 Constants =
-    move_threshold: 5
+    move_threshold: 15
     time_score_multiplier: 10
     section_length: 3609
     pause_length: 6347.7549
@@ -65,7 +65,7 @@ Dance =
     
     doMirroring : () ->
         time = @time()
-        unless @threshold() and @match(time)
+        if @threshold() and not @match(time)
             UI.msg 'Game Over!'
             Sound.start 'failure'
             @state = States.done
@@ -91,7 +91,7 @@ Dance =
         Math.abs(@sample.x) + Math.abs(@sample.y) + Math.abs(@sample.z) > Constants.move_threshold
 
     match : (time) ->
-        console.log @current_events, @dance
+        # console.log @current_events, @dance
         [sb, tb] = @dance[@current_events]
         [sa, ta] = [@sample, time]
         [dx, dy, dz] = [Math.abs(sa.x - sb.x), Math.abs(sa.y - sb.y), Math.abs(sa.z - sb.z)]
