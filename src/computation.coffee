@@ -33,6 +33,7 @@ Dance =
         return if @state is States.done
     
         sample = sample.acceleration
+        UI.dbg(sample)
 
         # We need to keep track of where in the song we are
         time = Date.now()
