@@ -31,6 +31,7 @@ window.UI =
     @ref 'reset'
     @msg 'Dance.'
     window.ondevicemotion = Dance.register_sample
+	Dance.start_dance()
     
     
     

@@ -1,6 +1,9 @@
 Constants =
     move_threshold: 10
     time_score_multiplier: 10
+    section_length: 20
+    pause_length: 5
+    score_threshold: 3
 
 Tokens =
     stationary: 0
@@ -23,15 +26,22 @@ Dance =
     # Whole performance: list of list of events by section 
     dance: []
 
+    section_events: []
+    section_counter: 0
+    section_end: 0
+
+
     state: States.done
 
     # Methods
 
     register_sample: (sample) ->
+
         # If we're not running, exit now
         return if @state is States.done
     
         sample = sample.acceleration
+        UI.dbg("#{sample.x} #{sample.y} #{sample.z}")
 
         # We need to keep track of where in the song we are
         time = Date.now()
@@ -41,28 +51,27 @@ Dance =
             return
         else
             @state = States.running
-            @section_end += @section_length
-
-        @current_samples.push([sample, time])
+            @section_end += Constants.section_length
 
         # If we've passed the end of the section
         if time > @section_end
             # If this is the latest section of the dance, store it, switch to pause state
             if @section_counter > @dance.length
                 @dance.append(@section_events)
+                @section_events = []
                 @section_counter = 0
-                @section_end += @pause_length
+                @section_end += Constants.pause_length
                 @state = States.paused
             else
                 # Otherwise, just register it and move on
-                @section_end += @section_length
+                @section_end += Constants.section_length
                 @section_counter += 1
 
-        # If we've passed the end of the song, end
-        if time > @song_end
-            @state = States.done
-            UI.victory()
-            return
+        #TODO: If we've passed the end of the song, end
+#        if time > @song_end
+#            @state = States.done
+#            UI.victory()
+#            return
 
         event_check = false
 
@@ -86,13 +95,12 @@ Dance =
             dt = Constants.time_score_multiplier * Math.abs(ta - tb)
 
             # Player screwed up
-            if Math.max(dx, dy, dz, dt) > @score_threshold
+            if Math.max(dx, dy, dz, dt) > Constants.score_threshold
                 @end_dance()
                 return
 
     start_dance: () ->
         @dance = []
-        @current_samples = []
         @current_state = States.running
 
     end_dance: () ->

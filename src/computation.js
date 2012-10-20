@@ -27,10 +27,12 @@ Dance = {
   state: States.done,
   register_sample: function(sample) {
     var dt, dx, dy, dz, ea, eb, event_check, sa, sb, ta, tb, time, _ref;
+    UI.dbg("running register_sample");
     if (this.state === States.done) {
       return;
     }
     sample = sample.acceleration;
+    UI.dbg(sample);
     time = Date.now();
     if (this.state === States.paused && time < this.section_end) {
       return;

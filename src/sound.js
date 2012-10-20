@@ -4,24 +4,22 @@ var Sound;
 Sound = {
   files: {},
   init: function(name, path) {
-    var f, n, p, r,
+    var f, n,
       _this = this;
     this.files[name] = f = new Audio(path);
     f.play();
     if (f.readyState !== 4) {
-      p = function() {
-        return f.pause();
-      };
       n = function() {
         return false;
       };
-      r = function() {
-        return f.currentTime = 0.1;
-      };
       f.addEventListener('canplaythrough', n, false);
       f.addEventListener('load', n, false);
-      f.addEventListener('ended', r, false);
-      return setTimeout(p, 1);
+      f.addEventListener('ended', (function() {
+        return f.currentTime = 0.1;
+      }), false);
+      return setTimeout((function() {
+        return f.pause();
+      }), 1);
     }
   },
   start: function(name) {
