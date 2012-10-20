@@ -49,9 +49,9 @@ Dance =
         # If we're paused, wait until we hit the end of the pause
         if @state is States.paused and time < @section_end
             return
-        else
-            @state = States.running
-            @section_end += Constants.section_length
+        
+				@state = States.running
+        @section_end += Constants.section_length
 
         # If we've passed the end of the section
         if time > @section_end

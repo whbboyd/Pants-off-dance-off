@@ -14,6 +14,9 @@ Sound =
   
   start : (name) ->
     @files[name].play()
+  
+  is_finished : (name) ->
+    @files[name].currentTime == 0.1
     
 Sound.init 'song',       'audio/sweetdaftstarships.mp3'
 Sound.init 'countdown',  'audio/countdown.mp3'
