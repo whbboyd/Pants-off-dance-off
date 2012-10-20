@@ -18,7 +18,7 @@ Dance =
 	register_sample: (sample) ->
 
 		# If we're not running, exit now
-		if @state is States.done then return
+		return if @state is States.done
 
 		# We need to keep track of where in the song we are
 		time = Date.now()
@@ -46,7 +46,7 @@ Dance =
 				@section_counter += 1
 
 		# If we've passed the end of the song, end
-		if time > @song_end then
+		if time > @song_end
 			@state = States.done
 			ui.victory()
 			return
