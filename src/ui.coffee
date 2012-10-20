@@ -22,6 +22,22 @@ window.UI =
     Dance.start()
     window.ondevicemotion = (e) ->
       Dance.register_sample(e)
+    Dance.start()
+    setInterval(() ->
+        x = window.accels.pop()
+        Dance.register_sample(x)
+      , 100)
+
+    
+  game_over : () ->
+    @stop()
+    @msg 'You Lose.'
+    Sound.failure()
+    
+  victory : () ->
+    return unless @state == @states.active
+    @stop()
+    @msg 'Victory!'
   
   bind: () ->
     @msg 'Ready thyself.'
