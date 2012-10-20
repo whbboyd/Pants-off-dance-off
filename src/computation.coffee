@@ -16,6 +16,7 @@ Dance =
 	# Methods
 
 	register_sample: (sample) ->
+		sample = sample.acceleration
 
 		# If we're not running, exit now
 		return if @state is States.done
@@ -48,13 +49,13 @@ Dance =
 		# If we've passed the end of the song, end
 		if time > @song_end
 			@state = States.done
-			ui.victory()
+			UI.victory()
 			return
 
 		event_check = false
 
 		# If this looks like an event, store it.
-		if sample.accel.x + sample.accel.y + sample.accel.z > @move_threshold
+		if sample.acceleration.x + sample.y + sample.z > @move_threshold
 			@section_events.push(sample, time)
 			event_check = true
 
@@ -69,9 +70,9 @@ Dance =
 			eb = @dance[-1][@section_events.length - 1]
 			sb = eb[0]
 			tb = eb[1]
-			(dx, dy, dz) = (Math.abs(sa.acceleration.x - sb.acceleration.x),
-							Math.abs(sa.acceleration.y - sb.acceleration.y),
-							Math.abs(sa.acceleration.z - sb.acceleration.z))
+			[dx, dy, dz] = [Math.abs(sa.x - sb.x),
+							Math.abs(sa.y - sb.y),
+							Math.abs(sa.z - sb.z)]
 			dt = 10 * Math.abs(ta - tb)
 
 			# Player screwed up
@@ -87,7 +88,7 @@ Dance =
 
 	end_dance: () ->
 		@state = States.done
-		ui.game_over()
+		UI.game_over()
 
 
 	# Constants:
