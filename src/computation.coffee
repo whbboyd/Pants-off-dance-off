@@ -1,10 +1,10 @@
 Constants =
     move_threshold: 10
     time_score_multiplier: 10
-    section_length: 3609
-    pause_length: 3609
-    prelude_length: 3609
-    initial_length: 3609
+    section_length: 3609 / 2
+    pause_length: 3609 / 2
+    prelude_length: 3609 / 2
+    initial_length: 3609 / 2
     score_threshold: 15
         
 States =
@@ -44,7 +44,6 @@ Dance =
     time : () -> Sound.files['song'].currentTime * 1000.0
     
     doPrelude : () ->
-        UI.dbg("In prelude")
         if @time() > @section_end
             UI.msg 'Initial'
             @section_end += Constants.initial_length
