@@ -22,10 +22,6 @@ Sound =
     @files[name].duration/bpm * 100
     
 Sound.init 'song',       'audio/sweetdaftstarships.mp3' 
-Sound.init 'three',      'audio/three.mp3'
-Sound.init 'two',        'audio/two.mp3'
-Sound.init 'one',        'audio/one.mp3'
+Sound.init 'countdown',  'audio/three-two-one.mp3'
 Sound.init 'failure',    'audio/failure.mp3'
-Sound.init 'swap',       'audio/swap.mp3'
-Sound.init 'nextplayer', 'audio/nextplayer.mp3'
-Sound.init 'keepgoing',  'audio/keepgoing.mp3'
+Sound.init 'swap',       'audio/three-two-one-swap-three-two-one.mp3'
