@@ -14,7 +14,17 @@ States =
     done: 2
     mirroring: 3
     recording: 4
-   
+ 
+Token = 
+    x: 0
+    y: 1
+    z: 2
+    get: (s)->
+        switch Math.max(Math.abs(s.x), Math.abs(s.y), Math.abs(s.z))
+            when Math.abs(s.x) then 0
+            when Math.abs(s.y) then 1
+            when Math.abs(s.z) then 2
+ 
 Dance =
 
     state: States.done
@@ -32,7 +42,7 @@ Dance =
         return if @state is States.done
         
         @sample = sample.acceleration
-        UI.dbg("#{@sample.x} #{@sample.y} #{@sample.z}")
+        # UI.dbg("#{@sample.x} #{@sample.y} #{@sample.z}")
         
         switch @state
             when States.prelude   then @doPrelude()
@@ -65,7 +75,7 @@ Dance =
     
     doMirroring : () ->
         time = @time()
-        if @threshold() and not @match(time)
+        if @threshold() and not @match()
             UI.msg 'Game Over!'
             Sound.start 'failure'
             @state = States.done
@@ -79,7 +89,7 @@ Dance =
     doRecording : () ->
         time = @time()
         if @threshold()
-            @dance.push([@sample, time])
+            @dance.push(Token.get(@sample))
         if time > @section_end
             UI.msg 'Paused'
             Sound.start 'swap'
@@ -90,13 +100,5 @@ Dance =
     threshold : () ->
         Math.abs(@sample.x) + Math.abs(@sample.y) + Math.abs(@sample.z) > Constants.move_threshold
 
-    match : (time) ->
-        # console.log @current_events, @dance
-        [sb, tb] = @dance[@current_events]
-        [sa, ta] = [@sample, time]
-        [dx, dy, dz] = [Math.abs(sa.x - sb.x), Math.abs(sa.y - sb.y), Math.abs(sa.z - sb.z)]
-        #dt = Constants.time_score_multiplier * Math.abs(ta - tb)
-        dt = 0
-        UI.dbg("#{dx}, #{dy}, #{dz}: #{dt}")
-        return Math.max(dx, dy, dz, dt) <= Constants.score_threshold
-
+    match : () ->
+        Token.get(@sample) == @dance[@current_events]
