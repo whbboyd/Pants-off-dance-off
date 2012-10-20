@@ -41,7 +41,7 @@ Dance =
             when States.mirroring then @doMirroring()
             when States.recording then @doRecording()
 
-    time : () -> Sound.file['song'].currentTime / 1000.0
+    time : () -> Sound.files['song'].currentTime / 1000.0
     
     doPrelude : () ->
         if @time() > @section_end
@@ -93,4 +93,6 @@ Dance =
         [sa, ta] = [@sample, time]
         [dx, dy, dz] = [Math.abs(sa.x - sb.x), Math.abs(sa.y - sb.y), Math.abs(sa.z - sb.z)]
         dt = Constants.time_score_multiplier * Math.abs(ta - tb)
+        UI.dbg("#{dx}, #{dy}, #{dz}: #{dt}")
         return Math.max(dx, dy, dz, dt) <= Constants.score_threshold
+
