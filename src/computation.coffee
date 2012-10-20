@@ -1,6 +1,7 @@
-Constants = null
+Constants =
+	move_threshold: 10
 
-Tokens = 
+Tokens =
 	stationary: 0
 	up: 1
 	down: 2
@@ -15,11 +16,6 @@ States =
 	done: 2
 	
 Dance =
-
-	# Configuration:
-
-	move_threshold: 10
-
 
 	# State
 
@@ -70,7 +66,7 @@ Dance =
 		event_check = false
 
 		# If this looks like an event, store it.
-		if sample.x + sample.y + sample.z > @move_threshold
+		if sample.x + sample.y + sample.z > Constants.move_threshold
 			@section_events.push([sample, time])
 			event_check = true
 
