@@ -5,15 +5,6 @@ Constants =
     pause_length: 481.39*14
     start_length: 481.39*3
     score_threshold: 3
-
-Tokens =
-    stationary: 0
-    up: 1
-    down: 2
-    left: 3
-    right: 4
-    forward: 5
-    back: 6
         
 States =
     paused: 1
