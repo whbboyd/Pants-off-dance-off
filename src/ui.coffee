@@ -29,7 +29,7 @@ window.UI =
     @ref 'reset'
     @state = @states.active
     
-    audio = new Audio('digital-love.mp3')
+    audio = new Audio('audio/sweetdaftstarships.mp3')
     audio.addEventListener('ended', (()=> audio.currentTime = 0.1), false)
     audio.play()
     # 
