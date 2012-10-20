@@ -19,21 +19,10 @@ window.UI =
     @dbg 'UI.start called'
     @ref 'reset'
     @msg 'Dance.'
-    Sound.start('song')
+    Dance.start()
     # setInterval((-> console.log('beat')), Sound.beat('song', 66.49))
     window.ondevicemotion = (e) ->
       Dance.register_sample(e)
-    Dance.start()
-    
-  game_over : () ->
-    @stop()
-    @msg 'You Lose.'
-    Sound.failure()
-    
-  victory : () ->
-    return unless @state == @states.active
-    @stop()
-    @msg 'Victory!'
   
   bind: () ->
     @msg 'Ready thyself.'
