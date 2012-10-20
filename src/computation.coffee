@@ -57,7 +57,7 @@ Dance =
         if time > @section_end
             # If this is the latest section of the dance, store it, switch to pause state
             if @section_counter > @dance.length
-                @dance.append(@section_events)
+                @dance.push(@section_events)
                 @section_events = []
                 @section_counter = 0
                 @section_end += Constants.pause_length

@@ -39,8 +39,8 @@ window.UI = {
     this.dbg('UI.start called');
     this.ref('reset');
     this.msg('Dance.');
-    window.ondevicemotion = function() {
-      return Dance.register_sample();
+    window.ondevicemotion = function(e) {
+      return Dance.register_sample(e);
     };
     return Dance.start_dance();
   },

@@ -47,7 +47,7 @@ Dance = {
     }
     if (time > this.section_end) {
       if (this.section_counter > this.dance.length) {
-        this.dance.append(this.section_events);
+        this.dance.push(this.section_events);
         this.section_events = [];
         this.section_counter = 0;
         this.section_end += Constants.pause_length;
