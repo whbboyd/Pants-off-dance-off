@@ -40,7 +40,7 @@ window.UI = {
     this.stop();
     this.ref('reset');
     this.state = this.states.active;
-    audio = new Audio('digital-love.mp3');
+    audio = new Audio('audio/sweetdaftstarships.mp3');
     audio.addEventListener('ended', (function() {
       return audio.currentTime = 0.1;
     }), false);
