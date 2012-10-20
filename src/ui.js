@@ -28,23 +28,16 @@ window.UI = {
   },
   state: 0,
   stop: function() {
-    this.dbg("UI.stop called");
+    this.dbg('UI.stop called');
     this.state = this.states.initial;
     this.ref('start');
     return window.ondevicemotion = false;
   },
   start: function() {
-    var audio,
-      _this = this;
-    this.dbg("UI.start called");
     this.stop();
-    this.ref('reset');
     this.state = this.states.active;
-    audio = new Audio('audio/sweetdaftstarships.mp3');
-    audio.addEventListener('ended', (function() {
-      return audio.currentTime = 0.1;
-    }), false);
-    audio.play();
+    this.dbg('UI.start called');
+    this.ref('reset');
     this.msg('Dance.');
     return window.ondevicemotion = Dance.register_sample;
   },
@@ -64,7 +57,7 @@ window.UI = {
   },
   bind: function() {
     this.msg('Ready thyself.');
-    this.ref("start");
+    this.ref('start');
     return this.action().onclick = function() {
       UI.start();
       return false;

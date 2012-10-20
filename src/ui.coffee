@@ -18,34 +18,17 @@ window.UI =
   state: 0
   
   stop: () ->
-    @dbg "UI.stop called"
+    @dbg 'UI.stop called'
     @state = @states.initial
     @ref 'start'
     window.ondevicemotion = false
   
   start: () ->
-    @dbg "UI.start called"
     @stop()
-    @ref 'reset'
+		
     @state = @states.active
-    
-    audio = new Audio('audio/sweetdaftstarships.mp3')
-    audio.addEventListener('ended', (()=> audio.currentTime = 0.1), false)
-    audio.play()
-
-    # Sound.play()
-        # 
-        # for i in Sound.timings
-        #   window.setTimeout("Sound.countdown()", i)
-        # 
-        # window.setTimeout("Sound.countdown()", )
-        # for i in [3..1]
-        #   window.setTimeout("")
-        # @msg '3'
-        # 
-    # window.setTimeout("UI.msg('2');", 1000)
-    # window.setTimeout("UI.msg('1');", 2000)
-    # window.setTimeout("UI.start();", 2999)
+    @dbg 'UI.start called'
+    @ref 'reset'
     @msg 'Dance.'
     window.ondevicemotion = Dance.register_sample
     
@@ -65,7 +48,7 @@ window.UI =
   
   bind: () ->
     @msg 'Ready thyself.'
-    @ref "start"
+    @ref 'start'
     @action().onclick = () ->
       UI.start()
       false
