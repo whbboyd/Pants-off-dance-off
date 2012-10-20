@@ -30,7 +30,7 @@ Dance =
 		# If we're not running, exit now
 		return if @state is States.done
     
-    sample = sample.acceleration
+		sample = sample.acceleration
 
 		# We need to keep track of where in the song we are
 		time = Date.now()
