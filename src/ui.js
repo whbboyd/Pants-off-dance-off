@@ -39,6 +39,7 @@ window.UI = {
     this.dbg('UI.start called');
     this.ref('reset');
     this.msg('Dance.');
+    Sound.start('song');
     window.ondevicemotion = function(e) {
       return Dance.register_sample(e);
     };

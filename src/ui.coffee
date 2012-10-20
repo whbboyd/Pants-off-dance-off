@@ -29,6 +29,7 @@ window.UI =
     @dbg 'UI.start called'
     @ref 'reset'
     @msg 'Dance.'
+    Sound.start('song')
     window.ondevicemotion = (e) ->
       Dance.register_sample(e)
     Dance.start_dance()

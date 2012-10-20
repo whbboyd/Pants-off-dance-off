@@ -16,7 +16,9 @@ Sound =
     @files[name].play()
     
 Sound.init 'song',       'audio/sweetdaftstarships.mp3'
-Sound.init 'countdown',  'audio/countdown.mp3'
+Sound.init 'three',      'audio/three.mp3'
+Sound.init 'two',        'audio/two.mp3'
+Sound.init 'one',        'audio/one.mp3'
 Sound.init 'failure',    'audio/failure.mp3'
 Sound.init 'swap',       'audio/swap.mp3'
 Sound.init 'nextplayer', 'audio/nextplayer.mp3'
