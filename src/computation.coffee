@@ -1,10 +1,10 @@
 Constants =
     move_threshold: 10
     time_score_multiplier: 10
-    section_length: 3609*4
-    pause_length: 3609*7
-    prelude_length: 3609*1.5
-    initial_length: 3609*1.5
+    section_length: 3609
+    pause_length: 3609
+    prelude_length: 3609
+    initial_length: 3609
     score_threshold: 3
         
 States =
@@ -41,9 +41,10 @@ Dance =
             when States.mirroring then @doMirroring()
             when States.recording then @doRecording()
 
-    time : () -> Sound.file['song'].currentTime / 1000.0
+    time : () -> Sound.files['song'].currentTime * 1000.0
     
     doPrelude : () ->
+        UI.dbg("In prelude")
         if @time() > @section_end
             UI.msg 'Initial'
             @section_end += Constants.initial_length
@@ -77,7 +78,6 @@ Dance =
             @state = States.recording
         
     doRecording : () ->
-        @dbg 'Do Recording'
         time = @time()
         if @sample.x + @sample.y + @sample.z > Constants.move_threshold
             @dance.push([@sample, time])
