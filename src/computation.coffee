@@ -93,6 +93,7 @@ Dance =
             @state = States.paused
      
     match : (time) ->
+        console.log @current_events, @dance
         [sb, tb] = @dance[@current_events]
         [sa, ta] = [@sample, time]
         [dx, dy, dz] = [Math.abs(sa.x - sb.x), Math.abs(sa.y - sb.y), Math.abs(sa.z - sb.z)]
