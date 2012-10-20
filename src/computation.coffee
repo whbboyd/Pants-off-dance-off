@@ -46,9 +46,9 @@ Dance =
     doPrelude : () ->
         if @time() > @section_end
             UI.msg 'Initial'
+            Sound.start 'countdown'
             @section_end += Constants.initial_length
             @state = States.initial
-            Sound.start 'countdown'
     
     doInitial : () ->
         UI.dbg("In initial")
@@ -56,7 +56,6 @@ Dance =
             UI.msg 'Recording'
             @section_end += Constants.section_length
             @state = States.recording
-            Sound.start 'swap'
 
     doPaused : () ->
         UI.dbg("In paused")

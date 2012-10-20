@@ -22,7 +22,7 @@ Sound =
   beat : (name, bpm) ->
     @files[name].duration/bpm * 100
     
-Sound.init 'song',       'audio/sweetdaftstarships.mp3', 0.5 
+Sound.init 'song',       'audio/sweetdaftstarships.mp3', 0.5
 Sound.init 'countdown',  'audio/three-two-one.mp3', 1.0
 Sound.init 'failure',    'audio/failure.mp3', 1.0
 Sound.init 'swap',       'audio/three-two-one-swap-three-two-one.mp3', 1.0
