@@ -1,5 +1,6 @@
 Constants =
     move_threshold: 10
+    time_score_multiplier: 10
 
 Tokens =
     stationary: 0
@@ -82,7 +83,7 @@ Dance =
             sb = eb[0]
             tb = eb[1]
             [dx, dy, dz] = [Math.abs(sa.x - sb.x), Math.abs(sa.y - sb.y), Math.abs(sa.z - sb.z)]
-            dt = 10 * Math.abs(ta - tb)
+            dt = Constants.time_score_multiplier * Math.abs(ta - tb)
 
             # Player screwed up
             if Math.max(dx, dy, dz, dt) > @score_threshold
@@ -92,7 +93,7 @@ Dance =
     start_dance: () ->
         @dance = []
         @current_samples = []
-        @current_state = States.paused
+        @current_state = States.running
 
     end_dance: () ->
         @state = States.done
