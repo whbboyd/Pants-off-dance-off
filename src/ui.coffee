@@ -20,7 +20,6 @@ window.UI =
     @ref 'reset'
     @msg 'Dance.'
     Dance.start()
-    # setInterval((-> console.log('beat')), Sound.beat('song', 66.49))
     window.ondevicemotion = (e) ->
       Dance.register_sample(e)
   
