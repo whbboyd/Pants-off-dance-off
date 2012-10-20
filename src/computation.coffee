@@ -6,30 +6,15 @@ Dance =
 
 	# Configuration:
 
-	beats: 4
-	samples_per_beat: 5
-	
-	rel_score_threshold: 2
-	abs_score_threshold: 10
-
 	move_threshold: 10
 
 
 	# State
 
-	# Whole performance: list of bars
+	# Whole performance: list of list of events by section 
 	dance: []
 
-	# Current bar: stored as a list of intermediate samples
-	current_samples: []
-
-	samples_so_far: 0
-	bars_so_far: 0
-
 	state: States.done
-
-	score: 0
-
 
 	# Methods
 
@@ -37,54 +22,47 @@ Dance =
 
 		if @state is States.done then return
 
-		# If we're paused, ignore this sample
-		if @state is States.pause
-			if @current_samples < @samples_per_beat * @beats:
-				@current_samples.append(null)
-				return @state
+		time = Date.now()
+		@current_samples.push((sample, time))
+
+		# If we've passed the end of the section
+		if time > @section_end
+			# If this is the latest section of the dance, store it, switch to pause state
+			if @section_counter > @dance.length
+				@dance.append(@section_events)
+				@section_counter = 0
+				@section_end += @pause_length
+				@state = States.paused
 			else
-				@current_samples = []
-				@state = States.running
-
-		@current_samples.push(sample)
-
-		# If we've passed the end of the bar, register it, score it if possible, reset the sample cache, carry on
-		if @current_samples.length >= @samples_per_beat * @beats
-			this_bar = tokenize_bar(@current_samples)
-			# If this is the last bar of the dance, store it
-			if @bars_so_far >= @dance.length
-				@score = 0
-				@dance.push(this_bar)
-				@state = States.pause
-			else
-				# Otherwise, register and score it.
-				this_score = score_bar(this_bar, @dance[-1])
-				@score += this_score
-				if this_score > @rel_score_threshold or @score > @abs_score_threshold:
-					ui.game_over()
-					@state = States.done
+				# Otherwise, just register it and move on
+				@section_end += @section_length
+				@section_counter += 1
 
 
-			@current_samples = []
+		# If we've passed the end of the song, end
+		if time > @song_end then
+			@state = States.done
+			return
 
+		# If this looks like an event, store it.
+		if sample.accel.x + sample.accel.y + sample.accel.z > @move_threshold
+			@section_events.push(sample, time)
 
-		return @state
-
-	tokenize_bar: (samples) ->
-		# end of bar; compute tokens
-		# Euler integrate once to find all peaks
-		# Pick max directional acc at each peak over thresh
+		# If this is a previously recorded section, check this event.
+		if @section_counter < @dance.length
+			sa = @section_events
+			(dx, dy, dz, dt) = (
+			
 
 
 
-	score_bar: (bar_a, bar_b) ->
-		# score a bar: compute Levenstein distance between bars
-
-
-	start: () ->
+	start_dance: () ->
 		@dance = []
 		@current_samples = []
-		@current_state = States.running
+		@current_state = States.paused
+	
+	end_dance: () ->
+		@state = States.done
 
 
 	# Constants:
@@ -99,6 +77,6 @@ Dance =
 		back: 6
 	States =
 		running: 0
-		pause: 1
+		paused: 1
 		done: 2
 	
