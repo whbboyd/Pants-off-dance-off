@@ -1,0 +1,26 @@
+For each sequence, we get input in the form of a sequence of 3D motion vectors:
+  s = [v1, v2, ..., vn]
+
+We tokenize s into a sequence of motion *tokens*:
+
+  T = f(s) = [t1, t2, ..., tm]
+
+Score is based on edit distance from replay token sequence T' to original token sequence T
+
+  score = levenstein(T, T')
+
+To work out:
+
+ * tokenization
+ * 
+
+
+
+Tokenization:
+  Divide space into 27 not-really-quadrants
+  Possible tokens are:
+	* cardinal directions
+//    * Directional movement (up, down, left, right, forward, back, any 3-tuple of above)
+	* stationary
+  Time-based? Record x,y,z at particular beats?
+
