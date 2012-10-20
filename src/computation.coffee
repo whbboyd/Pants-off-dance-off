@@ -1,9 +1,9 @@
 Constants =
     move_threshold: 10
     time_score_multiplier: 10
-    section_length: 20
-    pause_length: 7
-    start_length: 3
+    section_length: 481.39*8
+    pause_length: 481.39*14
+    start_length: 481.39*3
     score_threshold: 3
 
 Tokens =
@@ -34,10 +34,9 @@ Dance =
 
     register_sample : (sample) ->
         return if @state is States.done
-        
-        UI.dbg("#{sample.x} #{sample.y} #{sample.z}")
-        
+                
         @sample = sample.acceleration
+        UI.dbg("#{sample.x} #{sample.y} #{sample.z}")
         
         if @state is States.paused
             return @doPaused()
@@ -49,27 +48,30 @@ Dance =
     time : () -> Date.now()
 
     doPaused : () ->
+        @dbg 'Do Paused'
         if @time() > @section_end
-            @section_end += @section_length*@num_sections
+            @section_end += Constants.section_length*@num_sections
             @current_events = 0
             @state = States.mirroring
     
     doMirroring : () ->
+        @dbg 'Do Mirroring'
         time = @time()
         unless @match(time)
             @state = States.done
             UI.game_over()
             return
         if time > @section_end
-            @section_end += @section_length
+            @section_end += Constants.section_length
             @state = States.recording
         
     doRecording : () ->
+        @dbg 'Do Recording'
         time = @time()
         if @sample.x + @sample.y + @sample.z > Constants.move_threshold
             @dance.push([@sample, time])
         if time > @section_end
-            @section_end += @pause_length
+            @section_end += Constants.pause_length
             @state = States.paused
             @numSection += 1
      
