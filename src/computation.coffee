@@ -1,10 +1,10 @@
 Constants =
     move_threshold: 10
     time_score_multiplier: 10
-    section_length: 481.39*8
-    pause_length: 481.39*14
-    prelude_length: 481.39*3
-    initial_length: 481.39*3
+    section_length: 3609*4
+    pause_length: 3609*7
+    prelude_length: 3609*1.5
+    initial_length: 3609*1.5
     score_threshold: 3
         
 States =
@@ -14,7 +14,7 @@ States =
     done: 2
     mirroring: 3
     recording: 4
-    
+   
 Dance =
 
     state: States.done
@@ -24,7 +24,7 @@ Dance =
         @current_events = 0
         @num_sections = 0
         @dance = []
-        @state = States.initial
+        @state = States.prelude
 
     register_sample : (sample) ->
         return if @state is States.done
