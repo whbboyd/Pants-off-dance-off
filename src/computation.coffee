@@ -1,4 +1,19 @@
+Constants = null
 
+Tokens = 
+	stationary: 0
+	up: 1
+	down: 2
+	left: 3
+	right: 4
+	forward: 5
+	back: 6
+		
+States =
+	running: 0
+	paused: 1
+	done: 2
+	
 Dance =
 
 	# Configuration:
@@ -16,10 +31,10 @@ Dance =
 	# Methods
 
 	register_sample: (sample) ->
-		sample = sample.acceleration
-
 		# If we're not running, exit now
 		return if @state is States.done
+    
+    sample = sample.acceleration
 
 		# We need to keep track of where in the song we are
 		time = Date.now()
@@ -55,8 +70,8 @@ Dance =
 		event_check = false
 
 		# If this looks like an event, store it.
-		if sample.acceleration.x + sample.y + sample.z > @move_threshold
-			@section_events.push(sample, time)
+		if sample.x + sample.y + sample.z > @move_threshold
+			@section_events.push([sample, time])
 			event_check = true
 
 		#TODO: if there's a recorded event we should be checking against, do so
@@ -70,16 +85,13 @@ Dance =
 			eb = @dance[-1][@section_events.length - 1]
 			sb = eb[0]
 			tb = eb[1]
-			[dx, dy, dz] = [Math.abs(sa.x - sb.x),
-							Math.abs(sa.y - sb.y),
-							Math.abs(sa.z - sb.z)]
+			[dx, dy, dz] = [Math.abs(sa.x - sb.x), Math.abs(sa.y - sb.y), Math.abs(sa.z - sb.z)]
 			dt = 10 * Math.abs(ta - tb)
 
 			# Player screwed up
 			if Math.max(dx, dy, dz, dt) > @score_threshold
 				@end_dance()
 				return
-
 
 	start_dance: () ->
 		@dance = []
@@ -89,20 +101,4 @@ Dance =
 	end_dance: () ->
 		@state = States.done
 		UI.game_over()
-
-
-	# Constants:
-
-	Tokens =
-		stationary: 0
-		up: 1
-		down: 2
-		left: 3
-		right: 4
-		forward: 5
-		back: 6
-	States =
-		running: 0
-		paused: 1
-		done: 2
 
