@@ -28,6 +28,7 @@ Dance =
     # Methods
 
     register_sample: (sample) ->
+        UI.dbg("running register_sample")
         # If we're not running, exit now
         return if @state is States.done
     
