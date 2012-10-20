@@ -26,7 +26,6 @@ Dance =
     # Whole performance: list of list of events by section 
     dance: []
 
-    current_samples: []
     section_events: []
     section_counter: 0
     section_end: 0
@@ -53,8 +52,6 @@ Dance =
         else
             @state = States.running
             @section_end += Constants.section_length
-
-        @current_samples.push([sample, time])
 
         # If we've passed the end of the section
         if time > @section_end
@@ -104,7 +101,6 @@ Dance =
 
     start_dance: () ->
         @dance = []
-        @current_samples = []
         @current_state = States.running
 
     end_dance: () ->
