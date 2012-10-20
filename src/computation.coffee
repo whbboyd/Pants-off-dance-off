@@ -2,8 +2,8 @@ Constants =
     move_threshold: 5
     time_score_multiplier: 10
     section_length: 3609
-    pause_length: 3609
-    prelude_length: 3609
+    pause_length: 6347.7549
+    prelude_length: 3317.550897
     initial_length: 3609
     score_threshold: 15
         
@@ -51,14 +51,12 @@ Dance =
             @state = States.initial
     
     doInitial : () ->
-        UI.dbg("In initial")
         if @time() > @section_end
             UI.msg 'Recording'
             @section_end += Constants.section_length
             @state = States.recording
 
     doPaused : () ->
-        UI.dbg("In paused")
         if @time() > @section_end
             UI.msg 'Mirroring'
             @section_end += Constants.section_length * @num_sections
@@ -66,7 +64,6 @@ Dance =
             @state = States.mirroring
     
     doMirroring : () ->
-        UI.dbg("In mirroring")
         time = @time()
         unless @threshold() and @match(time)
             UI.msg 'Game Over!'
@@ -80,7 +77,6 @@ Dance =
             @state = States.recording
         
     doRecording : () ->
-        UI.dbg("In recording")
         time = @time()
         if @threshold()
             @dance.push([@sample, time])
