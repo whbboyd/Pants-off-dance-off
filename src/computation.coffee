@@ -101,7 +101,7 @@ Dance =
 
     start_dance: () ->
         @dance = []
-        @current_state = States.running
+        @state = States.running
 
     end_dance: () ->
         @state = States.done

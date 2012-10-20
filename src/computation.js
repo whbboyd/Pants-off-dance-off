@@ -78,7 +78,7 @@ Dance = {
   },
   start_dance: function() {
     this.dance = [];
-    return this.current_state = States.running;
+    return this.state = States.running;
   },
   end_dance: function() {
     this.state = States.done;

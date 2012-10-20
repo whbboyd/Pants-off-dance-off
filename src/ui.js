@@ -39,18 +39,11 @@ window.UI = {
     this.dbg('UI.start called');
     this.ref('reset');
     this.msg('Dance.');
-<<<<<<< Updated upstream
-    return window.ondevicemotion = Dance.register_sample;
-  }
-};
-
-Dance.start_dance()({
-=======
-    return window.ondevicemotion = function() {
+    window.ondevicemotion = function() {
       return Dance.register_sample();
     };
+    return Dance.start_dance();
   },
->>>>>>> Stashed changes
   game_over: function() {
     this.stop();
     this.state = this.states.lost;
@@ -73,4 +66,4 @@ Dance.start_dance()({
       return false;
     };
   }
-});
+};
