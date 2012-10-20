@@ -25,6 +25,7 @@ Dance =
         @num_sections = 0
         @dance = []
         @state = States.prelude
+        UI.msg 'Prelude'
         Sound.start 'song'
 
     register_sample : (sample) ->
@@ -40,10 +41,9 @@ Dance =
             when States.mirroring then @doMirroring()
             when States.recording then @doRecording()
 
-    time : () -> Sound.file['song'].currentTime
+    time : () -> Sound.file['song'].currentTime / 1000.0
     
     doPrelude : () ->
-        UI.msg 'Prelude'
         if @time() > @section_end
             UI.msg 'Initial'
             @section_end += Constants.initial_length
