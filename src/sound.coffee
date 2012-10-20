@@ -14,8 +14,11 @@ Sound =
   
   start : (name) ->
     @files[name].play()
+
+  beat : (name, bpm) ->
+    @files[name].duration/bpm * 100
     
-Sound.init 'song',       'audio/sweetdaftstarships.mp3'
+Sound.init 'song',       'audio/sweetdaftstarships.mp3' 
 Sound.init 'three',      'audio/three.mp3'
 Sound.init 'two',        'audio/two.mp3'
 Sound.init 'one',        'audio/one.mp3'
