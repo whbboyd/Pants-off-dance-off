@@ -15,7 +15,7 @@ States =
     mirroring: 3
     recording: 4
  
-Token = 
+Token =
     x: 0
     y: 1
     z: 2
