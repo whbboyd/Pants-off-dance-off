@@ -51,6 +51,7 @@ Dance =
             Sound.start 'countdown'
     
     doInitial : () ->
+        UI.dbg("In initial")
         if @time() > @section_end
             UI.msg 'Recording'
             @section_end += Constants.section_length
@@ -58,13 +59,15 @@ Dance =
             Sound.start 'swap'
 
     doPaused : () ->
+        UI.dbg("In paused")
         if @time() > @section_end
             UI.msg 'Mirroring'
-            @section_end += Constants.section_length*@num_sections
+            @section_end += Constants.section_length * @num_sections
             @current_events = 0
             @state = States.mirroring
     
     doMirroring : () ->
+        UI.dbg("In mirroring")
         time = @time()
         unless @match(time)
             UI.msg 'Game Over!'
@@ -77,6 +80,7 @@ Dance =
             @state = States.recording
         
     doRecording : () ->
+        UI.dbg("In recording")
         time = @time()
         if @sample.x + @sample.y + @sample.z > Constants.move_threshold
             @dance.push([@sample, time])
@@ -84,8 +88,8 @@ Dance =
             UI.msg 'Paused'
             Sound.start 'swap'
             @section_end += Constants.pause_length
-            @state = States.paused
             @numSection += 1
+            @state = States.paused
      
     match : (time) ->
         [sb, tb] = @dance[@current_events]

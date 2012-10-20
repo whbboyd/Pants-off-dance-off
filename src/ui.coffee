@@ -23,10 +23,10 @@ window.UI =
     window.ondevicemotion = (e) ->
       Dance.register_sample(e)
     Dance.start()
-    # setInterval(() ->
-        # x = window.accels.pop()
-        # Dance.register_sample(x)
-      # , 100)
+    #    setInterval(() ->
+    #        x = window.accels.pop()
+    #        Dance.register_sample(x)
+    #      , 100)
 
     
   game_over : () ->
