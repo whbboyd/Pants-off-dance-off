@@ -30,11 +30,9 @@ window.UI =
     @dbg 'UI.start called'
     @ref 'reset'
     @msg 'Dance.'
-    window.ondevicemotion = Dance.register_sample
-	Dance.start_dance()
-    
-    
-    
+    window.ondevicemotion = -> Dance.register_sample()
+		Dance.start_dance()
+
   game_over : () ->
     @stop()
     @state = @states.lost

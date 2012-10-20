@@ -3,7 +3,10 @@ var Constants, Dance, States, Tokens;
 
 Constants = {
   move_threshold: 10,
-  time_score_multiplier: 10
+  time_score_multiplier: 10,
+  section_length: 20,
+  pause_length: 5,
+  score_threshold: 3
 };
 
 Tokens = {
@@ -24,38 +27,35 @@ States = {
 
 Dance = {
   dance: [],
+  section_events: [],
+  section_counter: 0,
+  section_end: 0,
   state: States.done,
   register_sample: function(sample) {
     var dt, dx, dy, dz, ea, eb, event_check, sa, sb, ta, tb, time, _ref;
-    UI.dbg("running register_sample");
     if (this.state === States.done) {
       return;
     }
     sample = sample.acceleration;
-    UI.dbg(sample);
+    UI.dbg("" + sample.x + " " + sample.y + " " + sample.z);
     time = Date.now();
     if (this.state === States.paused && time < this.section_end) {
       return;
     } else {
       this.state = States.running;
-      this.section_end += this.section_length;
+      this.section_end += Constants.section_length;
     }
-    this.current_samples.push([sample, time]);
     if (time > this.section_end) {
       if (this.section_counter > this.dance.length) {
         this.dance.append(this.section_events);
+        this.section_events = [];
         this.section_counter = 0;
-        this.section_end += this.pause_length;
+        this.section_end += Constants.pause_length;
         this.state = States.paused;
       } else {
-        this.section_end += this.section_length;
+        this.section_end += Constants.section_length;
         this.section_counter += 1;
       }
-    }
-    if (time > this.song_end) {
-      this.state = States.done;
-      UI.victory();
-      return;
     }
     event_check = false;
     if (sample.x + sample.y + sample.z > Constants.move_threshold) {
@@ -71,14 +71,13 @@ Dance = {
       tb = eb[1];
       _ref = [Math.abs(sa.x - sb.x), Math.abs(sa.y - sb.y), Math.abs(sa.z - sb.z)], dx = _ref[0], dy = _ref[1], dz = _ref[2];
       dt = Constants.time_score_multiplier * Math.abs(ta - tb);
-      if (Math.max(dx, dy, dz, dt) > this.score_threshold) {
+      if (Math.max(dx, dy, dz, dt) > Constants.score_threshold) {
         this.end_dance();
       }
     }
   },
   start_dance: function() {
     this.dance = [];
-    this.current_samples = [];
     return this.current_state = States.running;
   },
   end_dance: function() {
