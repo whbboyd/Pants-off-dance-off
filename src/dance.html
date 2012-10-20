@@ -1,44 +1,20 @@
 <html>
   <head>
     <title>{Pants, Dance}-Off</title>
-    <script type="text/javascript" src="coffee-script.js"></script>
-    <script type="text/coffeescript" src="ui.coffee"></script>
-    <script type="text/coffeescript" src="computation.coffee"></script>
+    <script type="text/javascript" src="ui.coffee.js"></script>
+    <script type="text/javascript" src="computation.coffee.js"></script>
     <style>
       body {
         font-size: 5em;
       }
     </style>
   </head>
-  <body>
-    <ul>
-      <li></li>
-      <li></li>
-      <li></li>
-      <li></li>
-      <li></li>
-      <li></li>
-      <li></li>
-      <li></li>
-      <li></li>
-      <li></li>
-    </ul>
+  <body onload="javascript:UI.bind()">
+    <div id="timer"></div>
+    <a id="start" href="#">Start!</a>
 
     <script type="text/javascript">
-      window.samples = [], content = document.getElementById("content"), count = 0;
-      function round(num) { return Math.round(num*10)/10; }
-      function motion_happened(e) {
-        samples.push([e.accelerationIncludingGravity.x, e.accelerationIncludingGravity.y, e.accelerationIncludingGravity.z]);
-
-        document.getElementsByTagName("li")[count % 10].innerHTML =
-          ""+round(samples[count][0])+
-          ", "+round(samples[count][1])+
-          ", "+round(samples[count][2]);
-
-        count += 1;
-      }
-
-      window.ondevicemotion = motion_happened;
+      window.ondevicemotion = function(){ Dance.register_sample(e.acceleration) };
     </script>
   </body>
 </html>
