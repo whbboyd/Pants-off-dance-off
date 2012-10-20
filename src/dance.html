@@ -1,20 +1,48 @@
 <html>
   <head>
     <title>{Pants, Dance}-Off</title>
-    <script type="text/javascript" src="ui.coffee.js"></script>
-    <script type="text/javascript" src="computation.coffee.js"></script>
+    <script type="text/javascript" src="ui.js"></script>
+    <script type="text/javascript" src="computation.js"></script>
     <style>
       body {
         font-size: 5em;
+  		  text-align: center;
+  		  font-family: 'helvetica neue';
+  		  background: #333;
+  		  color: #fff;
       }
+  	  a {
+  		  text-decoration: none;
+  		  color: #fff;
+  		  background: #000;
+  		  border-radius: 0.5em;
+  		  padding: 0.25em 0.5em;
+  	  }
+  	  a:visited {
+  		  color: #fff;
+  	  }
+  	  a:active {
+  		  background: #fff;
+  		  color: #000;  
+  	  }
+      #action-container {
+        position: absolute;
+        bottom: 1em;
+        text-align: center;
+        width: 100%;
+      }
+  	  #message {
+  		  margin-bottom: 10px;
+        font-size: 1.5em;
+        position: absolute;
+        top: 1em;
+        text-align: center;
+        width: 100%;
+	    }
     </style>
   </head>
   <body onload="javascript:UI.bind()">
-    <div id="timer"></div>
-    <a id="start" href="#">Start!</a>
-
-    <script type="text/javascript">
-      window.ondevicemotion = function(){ Dance.register_sample(e.acceleration) };
-    </script>
+    <div id="message"></div>
+    <div id="action-container"><a id="action" href="#">start</a></div>
   </body>
 </html>
