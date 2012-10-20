@@ -32,7 +32,7 @@ window.UI =
     audio = new Audio('digital-love.mp3')
     audio.addEventListener('ended', (()=> audio.currentTime = 0.1), false)
     audio.play()
-    # 
+
     # Sound.play()
         # 
         # for i in Sound.timings
