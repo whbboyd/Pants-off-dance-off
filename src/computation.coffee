@@ -74,6 +74,7 @@ Dance =
             Sound.start 'failure'
             @state = States.done
             return
+        @current_events += 1
         if time > @section_end
             UI.msg 'Recording'
             @section_end += Constants.section_length
@@ -88,7 +89,7 @@ Dance =
             UI.msg 'Paused'
             Sound.start 'swap'
             @section_end += Constants.pause_length
-            @numSection += 1
+            @num_sections += 1
             @state = States.paused
      
     match : (time) ->
