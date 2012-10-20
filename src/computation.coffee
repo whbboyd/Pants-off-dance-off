@@ -22,6 +22,10 @@ Dance =
 
 		if @state is States.done then return
 
+		if @state is States.paused
+			
+			
+
 		time = Date.now()
 		@current_samples.push((sample, time))
 
@@ -48,19 +52,29 @@ Dance =
 		if sample.accel.x + sample.accel.y + sample.accel.z > @move_threshold
 			@section_events.push(sample, time)
 
-		# If this is a previously recorded section, check this event.
-		if @section_counter < @dance.length
-			sa = @section_events
-			(dx, dy, dz, dt) = (
-			
-
+			# If this is a previously recorded section, check this event.
+			if @section_counter < @dance.length
+				# MATH GOES HERE
+				ea = @section_events[-1]
+				sa = ea[0]
+				ta = ea[1]
+				eb = @dance[-1][@section_events.length - 1]
+				sb = eb[0]
+				tb = eb[1]
+				(dx, dy, dz) = (Math.abs(sa.accel.x - sb.accel.x),
+								Math.abs(sa.accel.y - sb.accel.y),
+								Math.abs(sa.accel.z - sb.accel.z))
+				dt = 10 * Math.abs(ta - tb)
+	
+				# Player screwed up
+				if Math.max(dx, dy, dz) > @score_threshold
 
 
 	start_dance: () ->
 		@dance = []
 		@current_samples = []
 		@current_state = States.paused
-	
+
 	end_dance: () ->
 		@state = States.done
 
@@ -79,4 +93,4 @@ Dance =
 		running: 0
 		paused: 1
 		done: 2
-	
+
