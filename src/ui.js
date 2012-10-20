@@ -40,7 +40,10 @@ window.UI = {
     this.ref('reset');
     this.msg('Dance.');
     return window.ondevicemotion = Dance.register_sample;
-  },
+  }
+};
+
+Dance.start_dance()({
   game_over: function() {
     this.stop();
     this.state = this.states.lost;
@@ -63,4 +66,4 @@ window.UI = {
       return false;
     };
   }
-};
+});
